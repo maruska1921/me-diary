@@ -254,7 +254,8 @@ function showPage(number) {
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
   
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
   
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
@@ -280,6 +281,12 @@ const db = getFirestore(app);
 
   
 const provider = new GoogleAuthProvider();
+  
+onAuthStateChanged(auth, (user) => {
+  document.getElementById("memoryArea").style.display = user ? "block" : "none";
+  document.getElementById("saveMemoryButton").style.display = user ? "block" : "none";
+});
+
 
 document.getElementById("googleSignInButton").addEventListener("click", async () => {
   try {
@@ -295,6 +302,17 @@ document.getElementById("googleSignInButton").addEventListener("click", async ()
 <button id="googleSignInButton" type="button">
   🔐 Sign in with Google
 </button>
+  
+<div id="memoryArea" style="display:none;">
+  <h2>My Memories 💙</h2>
+  <textarea id="memoryText" rows="6" placeholder="Dear Me, today I want to remember..."></textarea>
+</div>
+  
+<button id="saveMemoryButton" type="button" style="display:none;">
+  💾 Save My Memory
+</button>
+
+
 
 </body>
 </html>
