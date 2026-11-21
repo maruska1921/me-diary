@@ -57,6 +57,30 @@ body {
   display: block;
   grid-column: 1 / -1;
 }
+  .writing-pages {
+  display: none;
+  grid-column: 1 / -1;
+  grid-template-columns: 1fr 1fr;
+}
+
+.writing-page {
+  background: #f8f0df;
+  min-height: 560px;
+  padding: 55px 35px;
+  text-align: center;
+  border: 8px double #c4a777;
+}
+
+.writing-page h2 {
+  color: #344e63;
+  font-size: 28px;
+}
+
+@media (max-width: 650px) {
+  .writing-pages {
+    grid-template-columns: 1fr;
+  }
+}
   #pageOne,
 #pageTwo {
   display: none;
@@ -133,6 +157,17 @@ p { font-size: 1.1rem; line-height: 1.9; }
   <section class="chapter-page" id="chapterPage">
     <div class="book">
       <img src="me-pages.png.png" alt="My magical diary pages" class="book-artwork">
+      <div class="writing-pages" id="writingPages">
+  <div class="writing-page">
+    <h2>Who Am I?</h2>
+    <p>A place to discover myself and explore my memories.</p>
+  </div>
+
+  <div class="writing-page">
+    <h2>My Thoughts & Feelings</h2>
+    <p>A place for my thoughts, feelings, and reflections.</p>
+  </div>
+</div>
       <article class="page" id="pageOne">
         <h1>Chapter One</h1>
         <h2>Who Am I?</h2>
@@ -156,12 +191,15 @@ p { font-size: 1.1rem; line-height: 1.9; }
     </div>
 
     <div class="controls">
+      <button class="back-button" id="previousPagesButton" onclick="previousPages()" style="display:none">← Previous pages</button>
+      <button class="next-button" id="turnPageButton" onclick="turnPage()">Turn the page →</button>
       <button class="back-button" onclick="closeBook()">← Close the book</button>
     </div>
   </section>
 </main>
 <script>
 function openBook() {
+  previousPages();
   document.getElementById('coverPage').style.display = 'none';
   document.getElementById('chapterPage').style.display = 'block';
   showPage(1);
@@ -170,6 +208,20 @@ function openBook() {
 function closeBook() {
   document.getElementById('chapterPage').style.display = 'none';
   document.getElementById('coverPage').style.display = 'flex';
+  window.scrollTo(0, 0);
+}
+  function turnPage() {
+  document.querySelector('.book-artwork').style.display = 'none';
+  document.getElementById('writingPages').style.display = 'grid';
+  document.getElementById('previousPagesButton').style.display = 'inline-block';
+    document.getElementById('turnPageButton').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+  function previousPages() {
+  document.querySelector('.book-artwork').style.display = 'block';
+  document.getElementById('writingPages').style.display = 'none';
+  document.getElementById('previousPagesButton').style.display = 'none';
+    document.getElementById('turnPageButton').style.display = 'inline-block';
   window.scrollTo(0, 0);
 }
 function showPage(number) {
