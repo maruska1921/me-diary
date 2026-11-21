@@ -257,7 +257,9 @@ function showPage(number) {
 
 import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
   
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
 
 
   // TODO: Add SDKs for Firebase products that you want to use
@@ -285,6 +287,10 @@ const provider = new GoogleAuthProvider();
 onAuthStateChanged(auth, (user) => {
   document.getElementById("memoryArea").style.display = user ? "block" : "none";
   document.getElementById("saveMemoryButton").style.display = user ? "block" : "none";
+  
+if (user) loadMemories();
+else document.getElementById("savedMemories").replaceChildren();
+
 });
   
 document.getElementById("saveMemoryButton").addEventListener("click", async () => {
@@ -306,6 +312,45 @@ document.getElementById("saveMemoryButton").addEventListener("click", async () =
       text: memory,
       createdAt: new Date().toISOString()
     });
+    
+async function loadMemories() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const memoriesBox = document.getElementById("savedMemories");
+  memoriesBox.textContent = "Loading your memories...";
+
+  try {
+    const memoriesQuery = query(
+      collection(db, "users", user.uid, "entries"),
+      orderBy("createdAt", "desc")
+    );
+
+    const snapshot = await getDocs(memoriesQuery);
+    memoriesBox.replaceChildren();
+
+    if (snapshot.empty) {
+      memoriesBox.textContent = "No memories saved yet. 💙";
+      return;
+    }
+
+    snapshot.forEach((memoryDoc) => {
+      const memory = memoryDoc.data();
+      const entry = document.createElement("div");
+      const date = document.createElement("small");
+      const text = document.createElement("p");
+
+      date.textContent = memory.createdAt || "";
+      text.textContent = memory.text || "";
+
+      entry.append(date, text);
+      memoriesBox.appendChild(entry);
+    });
+  } catch (error) {
+    memoriesBox.textContent = "Could not load memories: " + error.message;
+  }
+}
+
 
     alert("Your memory has been saved! 💙");
     document.getElementById("memoryText").value = "";
@@ -334,6 +379,10 @@ document.getElementById("googleSignInButton").addEventListener("click", async ()
 <div id="memoryArea" style="display:none;">
   <h2>My Memories 💙</h2>
   <textarea id="memoryText" rows="6" placeholder="Dear Me, today I want to remember..."></textarea>
+  
+<h3>My Saved Memories 💙</h3>
+<div id="savedMemories"></div>
+
 </div>
   
 <button id="saveMemoryButton" type="button" style="display:none;">
