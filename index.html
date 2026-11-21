@@ -286,6 +286,34 @@ onAuthStateChanged(auth, (user) => {
   document.getElementById("memoryArea").style.display = user ? "block" : "none";
   document.getElementById("saveMemoryButton").style.display = user ? "block" : "none";
 });
+  
+document.getElementById("saveMemoryButton").addEventListener("click", async () => {
+  const user = auth.currentUser;
+  const memory = document.getElementById("memoryText").value.trim();
+
+  if (!user) {
+    alert("Please sign in first.");
+    return;
+  }
+
+  if (!memory) {
+    alert("Please write a memory first. 💙");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "users", user.uid, "entries"), {
+      text: memory,
+      createdAt: new Date().toISOString()
+    });
+
+    alert("Your memory has been saved! 💙");
+    document.getElementById("memoryText").value = "";
+  } catch (error) {
+    alert("Could not save your memory: " + error.message);
+  }
+});
+
 
 
 document.getElementById("googleSignInButton").addEventListener("click", async () => {
