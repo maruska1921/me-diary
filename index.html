@@ -312,7 +312,13 @@ document.getElementById("saveMemoryButton").addEventListener("click", async () =
       text: memory,
       createdAt: new Date().toISOString()
     });
-    
+    document.getElementById("memoryText").value = "";
+    await loadMemories();
+    alert("Your memory has been saved! 💙");
+      } catch (error) {
+    alert("Could not save your memory: " + error.message);
+  }
+});
 async function loadMemories() {
   const user = auth.currentUser;
   if (!user) return;
@@ -351,13 +357,7 @@ async function loadMemories() {
   }
 }
 
-
-    alert("Your memory has been saved! 💙");
-    document.getElementById("memoryText").value = "";
-  } catch (error) {
-    alert("Could not save your memory: " + error.message);
-  }
-});
+    
 
 
 
