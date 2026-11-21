@@ -71,11 +71,20 @@ body {
   border: 8px double #c4a777;
 outline: 1px solid #d8bd8c;
 outline-offset: -18px;
+  position: relative;
 }
 
 .writing-page h2 {
   color: #344e63;
   font-size: 28px;
+}
+  .writing-page::before {
+  content: "𓆦";
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  font-size: 30px;
+  color: #3b9996;
 }
 
 @media (max-width: 650px) {
