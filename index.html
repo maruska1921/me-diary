@@ -1,106 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Me. — My Journey</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #172c43;
-      font-family: Georgia, serif;
-      color: #443b37;
-    }
-    .cover-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .book-cover {
-      display: block;
-      width: 100%;
-      max-width: 490px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 20px 55px rgba(0,0,0,.55);
-      cursor: pointer;
-      transition: transform .3s ease;
-    }
-    .book-cover:hover { transform: scale(1.02); }
-    .book-button {
-      border: 0;
-      background: transparent;
-      padding: 0;
-      max-width: 490px;
-      width: 100%;
-      cursor: pointer;
-    }
-    .book-button:focus-visible {
-      outline: 3px solid #e6c68c;
-      outline-offset: 6px;
-    }
-    .chapter-page {
-      display: none;
-      min-height: 100vh;
-      padding: 35px 18px;
-      background: #172c43;
-    }
-    .chapter {
-      max-width: 750px;
-      margin: auto;
-      background: #f5eddb;
-      padding: 45px 30px;
-      border: 2px solid #c5a778;
-      border-radius: 8px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.3);
-      text-align: center;
-    }
-    h1 { font-size: 2.5rem; color: #344e63; }
-    p { font-size: 1.1rem; line-height: 1.8; }
-    .back-button {
-      margin-top: 30px;
-      padding: 12px 22px;
-      background: #344e63;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: Georgia, serif;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Me. — My Journey</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #172c43;
+  font-family: Georgia, serif;
+  color: #3c4148;
+}
+.cover-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.book-button {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  max-width: 490px;
+  cursor: pointer;
+}
+.book-cover {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 20px 55px rgba(0,0,0,.55);
+  transition: transform .3s;
+}
+.book-button:hover .book-cover { transform: scale(1.02); }
+.book-button:focus-visible { outline: 3px solid #e6c68c; }
+.chapter-page {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 18px;
+}
+.book {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  border: 8px solid #344e63;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.page {
+  background: #f8f0df;
+  min-height: 560px;
+  padding: 55px 35px;
+  text-align: center;
+  position: relative;
+}
+.page:first-child { border-right: 2px solid #d5bf9d; }
+.page::before {
+  content: "❦";
+  display: block;
+  color: #b99b63;
+  font-size: 36px;
+  margin-bottom: 25px;
+}
+h1 {
+  font-size: 2.4rem;
+  color: #344e63;
+  margin-bottom: 20px;
+}
+h2 { color: #56798b; }
+p { font-size: 1.1rem; line-height: 1.9; }
+.decoration {
+  color: #b99b63;
+  font-size: 26px;
+  margin: 30px 0;
+}
+.back-button, .next-button {
+  background: #344e63;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 25px auto;
+}
+.mobile-controls { display: none; }
+@media (max-width: 650px) {
+  .book { grid-template-columns: 1fr; }
+  .page { min-height: 480px; padding: 40px 25px; }
+  .page:first-child { border-right: none; }
+  .page.mobile-hidden { display: none; }
+  .mobile-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+}
+</style>
 </head>
 <body>
-  <main>
-    <section class="cover-page" id="coverPage">
-      <button class="book-button" onclick="openBook()" aria-label="Open my diary">
-        <img class="book-cover" src="me-cover.png.png" alt="Me. My magical diary cover">
-      </button>
-    </section>
-    <section class="chapter-page" id="chapterPage">
-      <div class="chapter">
+<main>
+  <section class="cover-page" id="coverPage">
+    <button class="book-button" onclick="openBook()" aria-label="Open my diary">
+      <img class="book-cover" src="me-cover.png.png" alt="Me. diary cover">
+    </button>
+  </section>
+
+  <section class="chapter-page" id="chapterPage">
+    <div class="book">
+      <article class="page" id="pageOne">
         <h1>Chapter One</h1>
         <h2>Who Am I?</h2>
+        <div class="decoration">✧ ❀ ✧</div>
         <p>A journey to discover who I am, where I have been, and who I am becoming.</p>
         <p>This is where my story begins.</p>
-        <button class="back-button" onclick="closeBook()">&#8592; Close the book</button>
-      </div>
-    </section>
-  </main>
-  <script>
-    function openBook() {
-      document.getElementById('coverPage').style.display = 'none';
-      document.getElementById('chapterPage').style.display = 'block';
-      window.scrollTo(0, 0);
-    }
-    function closeBook() {
-      document.getElementById('chapterPage').style.display = 'none';
-      document.getElementById('coverPage').style.display = 'flex';
-      window.scrollTo(0, 0);
-    }
-  </script>
+      </article>
+
+      <article class="page mobile-hidden" id="pageTwo">
+        <h1>Dear Me,</h1>
+        <div class="decoration">✧ 🪷 ✧</div>
+        <p>This is my space to remember, to feel, to dream, and to understand myself.</p>
+        <p>I don't need to have all the answers. I can discover my story one page at a time.</p>
+        <div class="decoration">✧ ❀ ✧</div>
+      </article>
+    </div>
+
+    <div class="mobile-controls">
+      <button class="next-button" id="previousButton" onclick="showPage(1)" style="display:none">← Previous page</button>
+      <button class="next-button" id="nextButton" onclick="showPage(2)">Next page →</button>
+    </div>
+
+    <div class="controls">
+      <button class="back-button" onclick="closeBook()">← Close the book</button>
+    </div>
+  </section>
+</main>
+<script>
+function openBook() {
+  document.getElementById('coverPage').style.display = 'none';
+  document.getElementById('chapterPage').style.display = 'block';
+  showPage(1);
+  window.scrollTo(0, 0);
+}
+function closeBook() {
+  document.getElementById('chapterPage').style.display = 'none';
+  document.getElementById('coverPage').style.display = 'flex';
+  window.scrollTo(0, 0);
+}
+function showPage(number) {
+  document.getElementById('pageOne').classList.toggle('mobile-hidden', number !== 1);
+  document.getElementById('pageTwo').classList.toggle('mobile-hidden', number !== 2);
+  document.getElementById('previousButton').style.display = number === 2 ? 'inline-block' : 'none';
+  document.getElementById('nextButton').style.display = number === 1 ? 'inline-block' : 'none';
+}
+</script>
 </body>
 </html>
