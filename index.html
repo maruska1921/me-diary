@@ -369,6 +369,35 @@ document.getElementById("saveWhoAmIButton").addEventListener("click", async () =
 });
 
   
+document.getElementById("saveFeelingsButton").addEventListener("click", async () => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Please sign in first. 💙");
+    return;
+  }
+
+  const feelings = document.getElementById("myFeelingsText").value.trim();
+
+  if (!feelings) {
+    alert("Write your feelings before saving. 🌸");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "users", user.uid, "entries"), {
+      text: feelings,
+      page: "feelings",
+      createdAt: new Date().toISOString()
+    });
+
+    alert("Your feelings have been saved! 💙");
+    await loadMemories();
+  } catch (error) {
+    alert("Could not save your feelings: " + error.message);
+  }
+});
+
   async function loadMemories() {
   const user = auth.currentUser;
   if (!user) return;
