@@ -374,7 +374,11 @@ document.getElementById("saveWhoAmIButton").addEventListener("click", async () =
   if (!user) return;
 
   const memoriesBox = document.getElementById("savedMemories");
+    const whoAmIBox = document.getElementById("whoAmIText");
+const feelingsBox = document.getElementById("myFeelingsText");
   memoriesBox.textContent = "Loading your memories...";
+    let savedStory = "";
+let savedFeelings = "";
 
   try {
     const memoriesQuery = query(
@@ -392,6 +396,9 @@ document.getElementById("saveWhoAmIButton").addEventListener("click", async () =
 
     snapshot.forEach((memoryDoc) => {
       const memory = memoryDoc.data();
+      const page = memory.page || "memories";
+      if (page === "whoAmI") savedStory = memory.text || "";
+      if (page === "feelings") savedFeelings = memory.text || "";
       const entry = document.createElement("div");
       entry.style.border = "2px solid #d4af37";
       entry.style.backgroundColor = "#243b55";
@@ -415,6 +422,8 @@ document.getElementById("saveWhoAmIButton").addEventListener("click", async () =
       entry.append(date, text);
       memoriesBox.appendChild(entry);
     });
+    whoAmIBox.value = savedStory;
+    feelingsBox.value = savedFeelings;
   } catch (error) {
     memoriesBox.textContent = "Could not load memories: " + error.message;
   }
