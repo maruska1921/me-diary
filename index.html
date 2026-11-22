@@ -299,20 +299,22 @@ else document.getElementById("savedMemories").replaceChildren();
 document.getElementById("saveMemoryButton").addEventListener("click", async () => {
   const user = auth.currentUser;
   const memory = document.getElementById("memoryText").value.trim();
-
+const whoAmI = document.getElementById("whoAmIText").value.trim();
+  const myFeelings = document.getElementById("myFeelingsText").value.trim();
   if (!user) {
     alert("Please sign in first.");
     return;
   }
 
-  if (!memory) {
+  if (!memory && !whoAmI && !myFeelings) {
     alert("Please write a memory first. 💙");
     return;
   }
 
   try {
     await addDoc(collection(db, "users", user.uid, "entries"), {
-      text: memory,
+      text: memory || whoAmI || myFeelings,
+      page: memory ? "memories" : whoAmI ? "whoAmI" : "myFeelings",
       createdAt: new Date().toISOString()
     });
     document.getElementById("memoryText").value = "";
