@@ -330,7 +330,37 @@ const whoAmI = document.getElementById("whoAmIText").value.trim();
     alert("Could not save your memory: " + error.message);
   }
 });
-async function loadMemories() {
+
+document.getElementById("saveWhoAmIButton").addEventListener("click", async () => {
+  const user = auth.currentUser;
+  const story = document.getElementById("whoAmIText").value.trim();
+
+  if (!user) {
+    alert("Please sign in first.");
+    return;
+  }
+
+  if (!story) {
+    alert("Please write your story first.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "users", user.uid, "entries"), {
+      text: story,
+      page: "whoAmI",
+      createdAt: new Date().toISOString()
+    });
+
+    alert("Your story has been saved! 💙");
+    await loadMemories();
+  } catch (error) {
+    alert("Could not save your story: " + error.message);
+  }
+});
+
+  
+  async function loadMemories() {
   const user = auth.currentUser;
   if (!user) return;
 
