@@ -343,6 +343,11 @@ async function loadMemories() {
     snapshot.forEach((memoryDoc) => {
       const memory = memoryDoc.data();
       const entry = document.createElement("div");
+      entry.style.border = "2px solid #d4af37";
+      entry.style.backgroundColor = "#243b55";
+      entry.style.borderRadius = "15px";
+      entry.style.padding = "20px";
+      entry.style.marginBottom = "20px";
       const date = document.createElement("small");
       const text = document.createElement("p");
 
