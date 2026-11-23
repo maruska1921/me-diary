@@ -205,8 +205,17 @@ p { font-size: 1.1rem; line-height: 1.9; }
 
   </div>
 </div>
-      <article class="page" id="pageOne">
-        <h1>Chapter One</h1>
+     <!-- Table of Contents will go here -->
+      <article class="page" id="contentsPage">
+  <h1>Contents</h1>
+  <h2>My Journey</h2>
+  <div class="decoration">✧ 🌸 ✧</div>
+  <p>Chapter One — Who Am I?</p>
+  <p>Chapter Two — My Memories</p>
+  <p>Chapter Three — My Thoughts & Feelings</p>
+  <p>Chapter Four — My Dreams & Goals</p>
+</article>
+<article class="page mobile-hidden" id="pageOne">        <h1>Chapter One</h1>
         <h2>Who Am I?</h2>
         <div class="decoration">✧ ❀ ✧</div>
         <p>A journey to discover who I am, where I have been, and who I am becoming.</p>
@@ -224,7 +233,7 @@ p { font-size: 1.1rem; line-height: 1.9; }
 
     <div class="mobile-controls">
       <button class="next-button" id="previousButton" onclick="showPage(1)" style="display:none">← Previous page</button>
-      <button class="next-button" id="nextButton" onclick="showPage(2)">Next page →</button>
+      <button class="next-button" id="nextButton" onclick="showPageNext()">Next page →</button>
     </div>
 
     <div class="controls">
@@ -239,7 +248,7 @@ function openBook() {
   previousPages();
   document.getElementById('coverPage').style.display = 'none';
   document.getElementById('chapterPage').style.display = 'block';
-  showPage(1);
+ showPage(0);
   window.scrollTo(0, 0);
 }
 function closeBook() {
@@ -262,11 +271,16 @@ function closeBook() {
   window.scrollTo(0, 0);
 }
 function showPage(number) {
+ document.getElementById('contentsPage').classList.toggle('mobile-hidden', number !== 0);
   document.getElementById('pageOne').classList.toggle('mobile-hidden', number !== 1);
   document.getElementById('pageTwo').classList.toggle('mobile-hidden', number !== 2);
   document.getElementById('previousButton').style.display = number === 2 ? 'inline-block' : 'none';
-  document.getElementById('nextButton').style.display = number === 1 ? 'inline-block' : 'none';
+document.getElementById('nextButton').style.display = number === 0 || number === 1 ? 'inline-block' : 'none';}
 }
+function showPageNext() {
+  showPage(1);
+}
+
 </script>
 <script type="module">
   // Import the functions you need from the SDKs you need
