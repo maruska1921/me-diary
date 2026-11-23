@@ -275,7 +275,7 @@ function showPage(number) {
   document.getElementById('pageOne').classList.toggle('mobile-hidden', number !== 1);
   document.getElementById('pageTwo').classList.toggle('mobile-hidden', number !== 2);
   document.getElementById('previousButton').style.display = number === 2 ? 'inline-block' : 'none';
-document.getElementById('nextButton').style.display = number === 0 || number === 1 ? 'inline-block' : 'none';}
+document.getElementById('nextButton').style.display = number === 0 || number === 1 ? 'inline-block' : 'none';
 }
 function showPageNext() {
   showPage(1);
