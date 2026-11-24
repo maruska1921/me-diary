@@ -1,300 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Me. — My Journey</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: #172c43;
-  font-family: Georgia, serif;
-  color: #3c4148;
-}
-.cover-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-.book-button {
-  background: none;
-  border: none;
-  padding: 0;
-  width: 100%;
-  max-width: 490px;
-  cursor: pointer;
-}
-.book-cover {
-  width: 100%;
-  display: block;
-  border-radius: 8px;
-  box-shadow: 0 20px 55px rgba(0,0,0,.55);
-  transition: transform .3s;
-}
-.book-button:hover .book-cover { transform: scale(1.02); }
-.book-button:focus-visible { outline: 3px solid #e6c68c; }
-.chapter-page {
-  display: none;
-  min-height: 100vh;
-  padding: 40px 18px;
-}
-.book {
-  max-width: 1000px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4);
-  border: 8px solid #344e63;
-  border-radius: 10px;
-  overflow: hidden;
-}
-  .book-artwork {
-  width: 100%;
-  height: auto;
-  display: block;
-grid-column: 1 / -1;
-grid-row: 1;
-}
-
-.writing-pages {
-  grid-row: 1;
-  display: none;
-  grid-column: 1 / -1;
-  grid-template-columns: 1fr 1fr;
-}
-
-.writing-page {
-  background: #f8f0df;
-  min-height: 560px;
-  padding: 55px 35px;
-  text-align: center;
-  border: 8px double #c4a777;
-outline: 1px solid #d8bd8c;
-outline-offset: -18px;
-  position: relative;
-  padding-bottom: 100px;
-}
-
-.writing-page button {
-  position: absolute;
-  bottom: 55px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
-
-.writing-page h2 {
-  color: #344e63;
-  font-size: 28px;
-}
-  .writing-page::before {
-  content: "𓆦";
-  position: absolute;
-  top: 22px;
- left: 28px;
-  font-size: 30px;
-  color: #3b9996;
-}
-  .writing-page::after {
-  content: "𓆦";
-  position: absolute;
-  bottom: 22px;
-  right: 28px;
-  font-size: 30px;
-  color: #3b9996;
-}
-
-@media (max-width: 650px) {
-  .writing-pages {
-    grid-template-columns: 1fr;
-  }
-} 
-  #contentsPage,
-#pageOne,
-#pageTwo {
-    display: none;
-}
- 
-.page {
-  background: #f8f0df;
-  min-height: 560px;
-  padding: 55px 35px;
-  text-align: center;
-  position: relative;
-    border: 8px double #c4a777;
-  outline: 1px solid #e3cfaa;
-  outline-offset: -18px;
-}
-.page:first-child { border-right: 2px solid #d5bf9d; }
-.page::before {
-  content: "✦ 🪷 ✦";
-  display: block;
-  color: #b99b63;
-  font-size: 36px;
-  margin-bottom: 25px;
-}
-h1 {
-  font-size: 2.4rem;
-  color: #344e63;
-  margin-bottom: 20px;
-}
-h2 { color: #56798b; }
-p { font-size: 1.1rem; line-height: 1.9; }
-.decoration {
-  color: #b99b63;
-  font-size: 26px;
-  margin: 30px 0;
-}
-.back-button, .next-button {
-  background: #344e63;
-  color: white;
-  border: none;
-  padding: 12px 22px;
-  border-radius: 6px;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.controls {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 25px auto;
-}
-.mobile-controls { display: none; }
-@media (max-width: 650px) {
-  .book { grid-template-columns: 1fr; }
-  .writing-page { min-height: 430px; padding: 42px 24px 105px; }
-  .writing-page textarea { min-height: 220px; }
-  .controls { flex-wrap: wrap; }
-  .page { min-height: 480px; padding: 40px 25px; }
-  .page:first-child { border-right: none; }
-  .page.mobile-hidden { display: none; }
-  .mobile-controls {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 20px;
-  }
-}
-</style>
-</head>
-<body>
-<main>
-  <section class="cover-page" id="coverPage">
-    <button class="book-button" onclick="openBook()" aria-label="Open my diary">
-      <img class="book-cover" src="me-cover.png.png" alt="Me. diary cover">
-    </button>
-  </section>
-
-  <section class="chapter-page" id="chapterPage">
-    <div class="book">
-      <img src="me-pages.png.png" alt="My magical diary pages" class="book-artwork">
-      <div class="writing-pages" id="writingPages">
-  <div class="writing-page">
-    <h2>Who Am I?</h2>
-   
-
-<textarea id="whoAmIText" placeholder="" rows="10" style="width:100%; padding:12px; background:transparent; border:none; outline:none; resize:none; font-family:'Brush Script MT',cursive; font-size:19px; line-height:1.8; color:#243b55;"></textarea>
-    
-<button id="saveWhoAmIButton" style="background:#243b55; color:#d4af37; border:1px solid #d4af37; border-radius:10px; padding:8px 18px; font-family:Georgia,serif; cursor:pointer;">✒ Save My Story</button>
-
-  </div>
-
-  <div class="writing-page">
-    <h2>My Thoughts & Feelings</h2>
-  <textarea id="myFeelingsText" placeholder=""rows="10" style="width:100%; padding:12px; background:transparent; border:none; outline:none; resize:none; font-family:'Brush Script MT',cursive; font-size:19px; line-height:1.8; color:#243b55;"></textarea>
-    
-<button id="saveFeelingsButton" style="background:#243b55; color:#d4af37; border:1px solid #d4af37; border-radius:10px; padding:8px 18px; font-family:Georgia,serif; cursor:pointer;">✒ Save My Feelings</button>
-
-
-  </div>
-</div>
-     <!-- Table of Contents will go here -->
-      <article class="page" id="contentsPage">
-  <h1>Contents</h1>
-  <h2>My Journey</h2>
-  <div class="decoration">✧ 🌸 ✧</div>
-  <p>Chapter One — Who Am I?</p>
-  <p>Chapter Two — My Memories</p>
-  <p>Chapter Three — My Thoughts & Feelings</p>
-  <p>Chapter Four — My Dreams & Goals</p>
-</article>
-<article class="page mobile-hidden" id="pageOne">        <h1>Chapter One</h1>
-        <h2>Who Am I?</h2>
-        <div class="decoration">✧ ❀ ✧</div>
-        <p>A journey to discover who I am, where I have been, and who I am becoming.</p>
-        <p>This is where my story begins.</p>
-      </article>
-
-      <article class="page mobile-hidden" id="pageTwo">
-        <h1>Dear Me,</h1>
-        <div class="decoration">✧ 🪷 ✧</div>
-        <p>This is my space to remember, to feel, to dream, and to understand myself.</p>
-        <p>I don't need to have all the answers. I can discover my story one page at a time.</p>
-        <div class="decoration">✧ ❀ ✧</div>
-      </article>
-    </div>
-
-
-
-    <p id="diarySignInHint" style="text-align:center;color:#fff5dc;max-width:700px;margin:22px auto 0;">Sign in with Google to save and reopen your private diary entries.</p>
-    <div class="controls">
-      <button class="back-button" id="previousPagesButton" onclick="previousPages()" style="display:none">← Previous pages</button>
-      <button class="next-button" id="turnPageButton" onclick="turnPage()">Turn the page →</button>
-      <button class="back-button" onclick="closeBook()">← Close the book</button>
-      <button id="googleSignInButton" class="next-button" type="button">🔐 Sign in with Google</button>
-    </div>
-  </section>
-</main>
-<script>
-function openBook() {
-  // previousPages();
-  document.getElementById('coverPage').style.display = 'none';
-  document.getElementById('chapterPage').style.display = 'block';
- previousPages();
-  window.scrollTo(0, 0);
-}
-function closeBook() {
-  document.getElementById('chapterPage').style.display = 'none';
-  document.getElementById('coverPage').style.display = 'flex';
-  window.scrollTo(0, 0);
-}
-  function turnPage() {
-  document.querySelector('.book-artwork').style.display = 'none';
-  document.getElementById('writingPages').style.display = 'grid';
-  document.getElementById('previousPagesButton').style.display = 'inline-block';
-    document.getElementById('turnPageButton').style.display = 'none';
-    window.scrollTo(0, 0);
-}
-  function previousPages() {
-  document.querySelector('.book-artwork').style.display = 'block';
-  document.getElementById('writingPages').style.display = 'none';
-  document.getElementById('previousPagesButton').style.display = 'none';
-    document.getElementById('turnPageButton').style.display = 'inline-block';
-  window.scrollTo(0, 0);
-}
-</script>
+*{box-sizing:border-box}body{margin:0;background:#172c43;color:#30445b;font-family:Georgia,serif}
+button,input,textarea{font:inherit}button{cursor:pointer}
+#cover{min-height:100vh;display:grid;place-items:center;padding:24px}
+#cover button{background:none;border:0;padding:0;max-width:460px;width:100%}
+#cover img{width:100%;border-radius:10px;box-shadow:0 18px 55px #0008}
+#diary{display:none;max-width:1120px;margin:auto;padding:18px 16px 70px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#f5e8c9;margin-bottom:14px}
+.topbar h1{font-size:30px;margin:4px 0}.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{background:#304b64;border:1px solid #caa96d;color:#f9e9bd;border-radius:9px;padding:10px 16px}
+.btn:hover,.btn:focus-visible{background:#46647a}.btn:disabled{opacity:.55;cursor:wait}
+.status{color:#f7e5b7;min-height:22px;font-size:14px;margin:10px 0}
+.book{display:grid;grid-template-columns:1fr 1fr;border:9px solid #354d5e;border-radius:11px;box-shadow:0 20px 65px #0007;overflow:hidden}
+.sheet{background:#faf1df;min-height:590px;padding:38px 35px 44px;position:relative;border:7px double #c6a777;outline:1px solid #d9bf8b;outline-offset:-18px}
+.sheet:before{content:"𓆦";position:absolute;top:18px;left:22px;color:#4eaaa8;font-size:26px}
+.sheet h2{text-align:center;color:#344e63;font-size:28px;margin:30px 0 18px}
+.sheet p{line-height:1.65}.sheet small{color:#647084}
+.sheet textarea{display:block;width:100%;min-height:290px;background:transparent;border:1px solid #ddcaa6;border-radius:7px;padding:14px;color:#243b55;font-size:19px;line-height:1.75;resize:vertical}
+.sheet textarea:focus{outline:2px solid #4eaaa8}
+.sheet input{padding:9px;border:1px solid #c7ad83;background:#fffaf0;border-radius:6px;max-width:100%}
+.sheet .btn{margin-top:12px}.contents button{display:block;width:100%;margin:7px 0;text-align:left;background:transparent;border:0;border-bottom:1px dotted #b7a47f;padding:8px 5px;color:#304b64;font-size:16px}
+.contents button:hover{text-decoration:underline}.book-controls{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px}
+#authGate{color:#f8ebcd;text-align:center;margin:28px auto;max-width:620px;line-height:1.7}
+#authGate .btn{font-size:17px}.history{max-height:340px;overflow:auto}
+.entry{border-bottom:1px solid #d9c9a9;padding:10px 0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65}
+.entry small{display:block;margin-bottom:5px}.hint{font-size:14px;color:#687484}
+#customForm{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+#customForm input{flex:1;min-width:150px}
+#bookIntro{width:100%;height:auto;display:block;border-radius:6px}
+#introPane{text-align:center}#introPane img{max-width:100%}
+#introPane .btn{margin-top:15px}
+#photoNote{font-size:13px;color:#6d7780}
+@media(max-width:720px){.book{grid-template-columns:1fr}.sheet{min-height:430px;padding:34px 24px}.sheet textarea{min-height:210px}}
+</style></head><body>
+<section id="cover"><button id="openCover" aria-label="Open my diary"><img src="me-cover.png.png" alt="Me diary cover"></button></section>
+<main id="diary">
+<div class="topbar"><h1>Me. <span style="font-size:17px">— My Journey 🦋</span></h1>
+<div class="actions"><span id="signedInLabel"></span><button class="btn" id="signIn">🔐 Sign in with Google</button><button class="btn" id="signOut" hidden>Sign out</button><button class="btn" id="closeBook">Close book</button></div></div>
+<div id="authGate"><p>Your private writing is only shown after you sign in. Please use the same Google account as before.</p><button class="btn" id="gateSignIn">🔐 Sign in to my diary</button></div>
+<div id="workspace" hidden>
+<div class="status" id="status" role="status" aria-live="polite"></div>
+<div class="book">
+<section class="sheet contents"><h2>Contents ✧</h2><p>Choose a chapter, or turn the page to begin your story.</p><div id="chapterList"></div>
+<h3 style="color:#344e63">Add my own chapter</h3><form id="customForm"><input id="chapterName" maxlength="80" placeholder="My new chapter name" aria-label="New chapter name" required><button class="btn" type="submit">Add chapter</button></form>
+<p class="hint">Your chapters are saved with your Google account.</p></section>
+<section class="sheet" id="editorSheet"><h2 id="chapterTitle">Who Am I?</h2><p class="hint">Write freely. Each time you save, a dated copy is kept below.</p>
+<label for="entryDate">Date of this entry</label> <input type="date" id="entryDate">
+<textarea id="entryText" placeholder="Dear Me, today I want to write..." aria-label="Diary writing"></textarea>
+<button class="btn" id="saveEntry">✒ Save this page</button><p id="photoNote">Photo uploads are not enabled yet. Please don't paste private photos into your public GitHub files.</p>
+<h3 style="color:#344e63">Saved pages</h3><div id="savedEntries" class="history"></div>
+</section></div>
+<div class="book-controls"><button class="btn" id="prevChapter">← Previous chapter</button><button class="btn" id="nextChapter">Next chapter →</button></div>
+</div></main>
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-  
-
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-  
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
-
-
-
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyAr1sa41Jqs7BeFqlf82uRMH38dtwLQzrg",
     authDomain: "me-diary-2cb50.firebaseapp.com",
     projectId: "me-diary-2cb50",
@@ -302,209 +66,85 @@ import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https
     messagingSenderId: "774031475639",
     appId: "1:774031475639:web:c05c2c024bd85683d91e32"
   };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  
-const db = getFirestore(app);
-
-  
-const provider = new GoogleAuthProvider();
-  
-onAuthStateChanged(auth, (user) => {
-  document.getElementById("memoryArea").style.display = user ? "block" : "none";
-  document.getElementById("saveMemoryButton").style.display = user ? "block" : "none";
-  document.getElementById("googleSignInButton").style.display = user ? "none" : "inline-block";
-  document.getElementById("diarySignInHint").textContent = user ? "Your writing is saved to your account when you press a Save button. 💙" : "Sign in with Google before writing so you can save your diary entries.";
-  document.getElementById("whoAmIText").disabled = !user;
-  document.getElementById("myFeelingsText").disabled = !user;
-  document.getElementById("saveWhoAmIButton").disabled = !user;
-  document.getElementById("saveFeelingsButton").disabled = !user;
-  if (!user) { document.getElementById("whoAmIText").value = ""; document.getElementById("myFeelingsText").value = ""; }
-  
-if (user) loadMemories();
-else document.getElementById("savedMemories").replaceChildren();
-
-});
-  
-document.getElementById("saveMemoryButton").addEventListener("click", async () => {
-  const user = auth.currentUser;
-  const memory = document.getElementById("memoryText").value.trim();
-  if (!user) {
-    alert("Please sign in first.");
-    return;
-  }
-
-  if (!memory) {
-    alert("Please write a memory first. 💙");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "users", user.uid, "entries"), {
-      text: memory,
-      page: "memories",
-      createdAt: new Date().toISOString()
-    });
-    document.getElementById("memoryText").value = "";
-    await loadMemories();
-    alert("Your memory has been saved! 💙");
-      } catch (error) {
-    alert("Could not save your memory: " + error.message);
-  }
-});
-
-document.getElementById("saveWhoAmIButton").addEventListener("click", async () => {
-  const user = auth.currentUser;
-  const story = document.getElementById("whoAmIText").value.trim();
-
-  if (!user) {
-    alert("Please sign in first.");
-    return;
-  }
-
-  if (!story) {
-    alert("Please write your story first.");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "users", user.uid, "entries"), {
-      text: story,
-      page: "whoAmI",
-      createdAt: new Date().toISOString()
-    });
-
-    alert("Your story has been saved! 💙");
-    await loadMemories();
-  } catch (error) {
-    alert("Could not save your story: " + error.message);
-  }
-});
-
-  
-document.getElementById("saveFeelingsButton").addEventListener("click", async () => {
-  const user = auth.currentUser;
-
-  if (!user) {
-    alert("Please sign in first. 💙");
-    return;
-  }
-
-  const feelings = document.getElementById("myFeelingsText").value.trim();
-
-  if (!feelings) {
-    alert("Write your feelings before saving. 🌸");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "users", user.uid, "entries"), {
-      text: feelings,
-      page: "feelings",
-      createdAt: new Date().toISOString()
-    });
-
-    alert("Your feelings have been saved! 💙");
-    await loadMemories();
-  } catch (error) {
-    alert("Could not save your feelings: " + error.message);
-  }
-});
-
-  async function loadMemories() {
-  const user = auth.currentUser;
-  if (!user) return;
-
-  const memoriesBox = document.getElementById("savedMemories");
-    const whoAmIBox = document.getElementById("whoAmIText");
-const feelingsBox = document.getElementById("myFeelingsText");
-  memoriesBox.textContent = "Loading your memories...";
-    let savedStory = "";
-let savedFeelings = "";
-
-  try {
-    const memoriesQuery = query(
-      collection(db, "users", user.uid, "entries"),
-      orderBy("createdAt", "desc")
-    );
-
-    const snapshot = await getDocs(memoriesQuery);
-    memoriesBox.replaceChildren();
-
-    if (snapshot.empty) {
-      memoriesBox.textContent = "No memories saved yet. 💙";
-      return;
-    }
-
-    snapshot.forEach((memoryDoc) => {
-      const memory = memoryDoc.data();
-      const page = memory.page || "memories";
-      if (page === "whoAmI") savedStory = memory.text || "";
-      if (page === "feelings") savedFeelings = memory.text || "";
-      const entry = document.createElement("div");
-      entry.style.border = "2px solid #d4af37";
-      entry.style.backgroundColor = "#243b55";
-      entry.style.borderRadius = "15px";
-      entry.style.padding = "20px";
-      entry.style.marginBottom = "20px";
-      const date = document.createElement("small");
-      const text = document.createElement("p");
-
-     date.textContent = memory.createdAt
-  ? new Date(memory.createdAt).toLocaleString("en-GB", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
-    })
-  : "";
-      text.textContent = memory.text || "";
-
-      entry.append(date, text);
-      memoriesBox.appendChild(entry);
-    });
-    whoAmIBox.value = savedStory;
-    feelingsBox.value = savedFeelings;
-  } catch (error) {
-    memoriesBox.textContent = "Could not load memories: " + error.message;
-  }
+const auth=getAuth(initializeApp(firebaseConfig)),db=getFirestore(),provider=new GoogleAuthProvider();
+const baseChapters=[{"title": "Who Am I?", "key": "whoAmI"}, {"title": "My Childhood", "key": "childhood"}, {"title": "My Family", "key": "family"}, {"title": "The Person I've Become", "key": "becoming"}, {"title": "My Memories", "key": "memories"}, {"title": "People Who Changed My Life", "key": "people"}, {"title": "Important Moments", "key": "moments"}, {"title": "My Life Today", "key": "today"}, {"title": "My Thoughts & Feelings", "key": "feelings"}, {"title": "Things I Never Said", "key": "unsaid"}, {"title": "My Dreams & Goals", "key": "dreams"}, {"title": "Letters to Myself", "key": "letters"}];
+let chapters=[...baseChapters],current=0,entries=[],user=null;
+const $=id=>document.getElementById(id);
+const status=(message)=>{$("status").textContent=message;};
+const today=()=>new Date().toLocaleDateString("en-CA");
+$("entryDate").value=today();
+$("openCover").onclick=()=>{$("cover").style.display="none";$("diary").style.display="block";window.scrollTo(0,0);};
+$("closeBook").onclick=()=>{$("diary").style.display="none";$("cover").style.display="grid";};
+async function login(){try{await signInWithPopup(auth,provider)}catch(e){alert("Sign-in failed: "+e.message)}}
+$("signIn").onclick=login;$("gateSignIn").onclick=login;
+$("signOut").onclick=async()=>{try{await signOut(auth)}catch(e){alert(e.message)}};
+function normalizePage(p){return p==="myFeelings"?"feelings":p||"memories";}
+function renderChapters(){
+ $("chapterList").replaceChildren();
+ chapters.forEach((c,i)=>{const b=document.createElement("button");b.textContent=(i+1)+". "+c.title;
+ b.onclick=()=>selectChapter(i);if(i===current)b.style.fontWeight="bold";$("chapterList").append(b)});
 }
-
-    
-
-
-
-document.getElementById("googleSignInButton").addEventListener("click", async () => {
-  try {
-    await signInWithPopup(auth, provider);
-    alert("Welcome to Me! 💙");
-  } catch (error) {
-    alert("Sign-in failed: " + error.message);
-  }
+function selectChapter(i){
+ current=(i+chapters.length)%chapters.length;
+ const chapter=chapters[current];$("chapterTitle").textContent=chapter.title;
+ $("entryText").value="";$("entryDate").value=today();
+ renderChapters();renderEntries();status("Chapter: "+chapter.title);
+}
+function renderEntries(){
+ const key=chapters[current].key;
+ const matches=entries.filter(e=>normalizePage(e.page)===key);
+ const container=$("savedEntries");container.replaceChildren();
+ if(!matches.length){container.textContent="No saved pages in this chapter yet.";return;}
+ // The first entry is newest; never overwrite it with older entries.
+ $("entryText").value=matches[0].text||"";
+ matches.forEach(e=>{
+ const item=document.createElement("div");item.className="entry";
+ const date=document.createElement("small");date.textContent=(e.entryDate||e.createdAt)?new Date(e.entryDate||e.createdAt).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}):"Saved entry";
+ const body=document.createElement("div");body.textContent=e.text||"";item.append(date,body);container.append(item);
+ });
+}
+async function loadData(){
+ if(!user)return;
+ status("Loading your saved writing...");
+ try{
+ const path=collection(db,"users",user.uid,"entries");
+ const snap=await getDocs(query(path,orderBy("createdAt","desc")));
+ entries=snap.docs.map(d=>d.data());
+ // Legacy pages are supported, including older feelings page names.
+ const custom=await getDocs(collection(db,"users",user.uid,"chapters"));
+ const extras=custom.docs.map(d=>d.data()).filter(c=>typeof c.title==="string"&&typeof c.key==="string");
+ chapters=[...baseChapters,...extras];
+ selectChapter(current<chapters.length?current:0);
+ status("Your diary is ready. Your saved writing is available below. 💙");
+ }catch(e){status("Could not load your diary: "+e.message)}
+}
+$("saveEntry").onclick=async()=>{
+ if(!user){alert("Please sign in first.");return}
+ const text=$("entryText").value.trim();if(!text){alert("Please write something before saving.");return}
+ const button=$("saveEntry");button.disabled=true;status("Saving your page...");
+ try{
+ const record={text,page:chapters[current].key,entryDate:$("entryDate").value||today(),createdAt:new Date().toISOString()};
+ await addDoc(collection(db,"users",user.uid,"entries"),record);
+ entries.unshift(record);renderEntries();status("Saved! Your newest page is now shown first. 💙");
+ }catch(e){status("Save failed: "+e.message);alert("Could not save: "+e.message)}
+ finally{button.disabled=false}
+};
+$("customForm").onsubmit=async e=>{
+ e.preventDefault();if(!user)return;
+ const title=$("chapterName").value.trim();if(!title)return;
+ if(chapters.some(c=>c.title.toLowerCase()===title.toLowerCase())){alert("That chapter already exists.");return}
+ const key="custom-"+Date.now().toString(36);
+ try{await addDoc(collection(db,"users",user.uid,"chapters"),{title,key});
+ chapters.push({title,key});$("chapterName").value="";selectChapter(chapters.length-1);
+ status("Your new chapter has been added. 💙");
+ }catch(err){status("Could not add chapter: "+err.message)}
+};
+$("prevChapter").onclick=()=>selectChapter(current-1);
+$("nextChapter").onclick=()=>selectChapter(current+1);
+onAuthStateChanged(auth,async u=>{
+ user=u;$("authGate").hidden=!!u;$("workspace").hidden=!u;
+ $("signIn").hidden=!!u;$("signOut").hidden=!u;
+ $("signedInLabel").textContent=u?"Signed in":"";
+ if(u){await loadData()}else{entries=[];chapters=[...baseChapters];$("entryText").value="";}
 });
-
-</script>
-
-
-  
-<div id="memoryArea" style="display:none; max-width:850px; margin:35px auto; padding:22px; color:#fff5dc;">
-  <h2>My Memories 💙</h2>
-  <p style="color:#fff5dc;">Write a memory here, then click Save My Memory below.</p>
-  <textarea id="memoryText" rows="6" placeholder="Dear Me, today I want to remember..." style="width:100%;padding:16px;border-radius:12px;background:#fffaf0;font:18px Georgia,serif;"></textarea>
-  
-<h3>My Saved Memories 💙</h3>
-<div id="savedMemories" style="color: #fff5dc; font-size: 18px; line-height: 1.8;"></div>
-
-</div>
-  
-<button id="saveMemoryButton" type="button" style="display:none;margin:10px auto 45px;padding:14px 24px;border-radius:10px;background:#344e63;color:#fff5dc;border:1px solid #d4af37;font:18px Georgia,serif;cursor:pointer;">
-  💾 Save My Memory
-</button>
-
-
-
-</body>
-</html>
+</script></body></html>
